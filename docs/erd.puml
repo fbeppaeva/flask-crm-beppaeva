@@ -1,0 +1,38 @@
+@startuml
+title ERD – Flask CRM mit SQLite (Customer, Lead, Contact)
+
+entity Customer {
+  *id : Integer <<PK>>
+  --
+  name : String
+  email : String
+  company : String
+  phone : String
+  status : String
+}
+
+entity Lead {
+  *id : Integer <<PK>>
+  --
+  customer_id : Integer <<FK>>
+  name : String
+  email : String
+  company : String
+  value : Float
+  source : String
+  status : String
+}
+
+entity Contact {
+  *id : Integer <<PK>>
+  --
+  customer_id : Integer <<FK>>
+  contact_type : String
+  notes : String
+  date : DateTime
+}
+
+Customer ||--o{ Contact : has
+Customer ||--o{ Lead : has
+
+@enduml

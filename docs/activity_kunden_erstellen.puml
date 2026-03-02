@@ -1,0 +1,26 @@
+@startuml
+title Aktivitätsdiagramm – Kunden erstellen
+
+|Sales User|
+start
+:Formular öffnen;
+:Kundendaten eingeben;
+:Formular absenden;
+
+|System (Flask Controller)|
+:POST /customers/add empfangen;
+:Daten validieren;
+
+if (Validierung erfolgreich?) then (Ja)
+    :Customer-Objekt erstellen;
+    :In SQLite speichern;
+    :Erfolgsmeldung (Flash);
+    :Redirect zur Kundenliste;
+    stop
+else (Nein)
+    :Fehlermeldung (Flash);
+    :Redirect zurück zum Formular;
+    stop
+endif
+
+@enduml

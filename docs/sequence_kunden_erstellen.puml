@@ -1,0 +1,48 @@
+@startuml
+title Sequenzdiagramm – Kunde anlegen (CRUD)
+
+actor "Sales User" as U
+participant "Browser" as B
+participant "Flask Controller\n(app.py)" as C
+participant "Customer Model\n(models.py / SQLAlchemy)" as M
+database "SQLite DB" as DB
+participant "Template\n(add_customer.html / customers.html)" as T
+
+U -> B: Formular ausfüllen\nund absenden
+B -> C: POST /customers/add
+activate C
+
+C -> C: request.form lesen\n+ Validierung
+
+alt Validierung erfolgreich
+  C -> M: create_customer(data)
+  activate M
+  M -> DB: INSERT Customer
+  DB --> M: OK
+  M --> C: Customer gespeichert
+  deactivate M
+
+  C -> C: flash("Erfolg")
+  C --> B: redirect(/customers)
+
+  B -> C: GET /customers
+  C -> M: get_all_customers()
+  M -> DB: SELECT * FROM Customer
+  DB --> M: Customer-Liste
+  M --> C: Customer-Liste
+  C -> T: render_template(customers.html,\ncustomers)
+  T --> C: HTML
+  C --> B: 200 OK + HTML
+else Validierung fehlgeschlagen
+  C -> C: flash("Fehler")
+  C --> B: redirect(/customers/add)
+
+  B -> C: GET /customers/add
+  C -> T: render_template(add_customer.html)
+  T --> C: HTML
+  C --> B: 200 OK + HTML
+end
+
+deactivate C
+B --> U: Seite anzeigen
+@enduml

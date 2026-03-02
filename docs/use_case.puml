@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+
+actor "Sales User" as SU
+actor "Admin" as A
+
+rectangle "CRM System" {
+
+  usecase "Kunden anzeigen" as UC1
+  usecase "Kunden erstellen" as UC2
+  usecase "Kunden bearbeiten" as UC3
+  usecase "Kunden löschen" as UC4
+  usecase "Leads verwalten" as UC5
+  usecase "Kontakte dokumentieren" as UC6
+  usecase "Daten in SQLite speichern" as UC7
+}
+
+SU --> UC1
+SU --> UC2
+SU --> UC3
+SU --> UC4
+SU --> UC5
+SU --> UC6
+
+UC2 --> UC7 : <<include>>
+UC3 --> UC7 : <<include>>
+UC4 --> UC7 : <<include>>
+
+A --> UC7
+
+@enduml
