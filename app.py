@@ -4,6 +4,8 @@ from models import Customer, Lead
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-this'
 
+# Sprint 2 – Begin Implementierung Basisfunktionalität
+
 def init_sample_data():
     Customer.add_customer('John Doe', 'john@example.com', 'Acme Corp', '555-0001', 'active')
     Customer.add_customer('Jane Smith', 'jane@example.com', 'Tech Solutions', '555-0002', 'prospect')
