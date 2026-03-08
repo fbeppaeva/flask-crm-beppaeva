@@ -5,6 +5,7 @@ app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-this'
 
 # Sprint 2 – Begin Implementierung Basisfunktionalität
+# SCRUM-10 Customer creation implemented
 
 def init_sample_data():
     Customer.add_customer('John Doe', 'john@example.com', 'Acme Corp', '555-0001', 'active')
