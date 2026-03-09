@@ -1,7 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_sqlalchemy import SQLAlchemy
 from models import Customer, Lead
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///crm.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 app.secret_key = 'your-secret-key-change-this'
 
 # Sprint 2 – Begin Implementierung Basisfunktionalität
@@ -121,5 +127,8 @@ def page_not_found(error):
 def internal_error(error):
     return render_template('500.html'), 500
 
+with app.app_context():
+    db.create_all()
+    
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
