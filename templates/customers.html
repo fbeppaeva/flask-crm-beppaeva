@@ -7,6 +7,17 @@
     <a href="{{ url_for('add_customer') }}" class="btn btn-primary">+ Add Customer</a>
 </p>
 
+<form method="GET" action="{{ url_for('customers') }}" style="margin-bottom:20px;">
+    <input 
+        type="text" 
+        name="search" 
+        placeholder="Search customers..." 
+        value="{{ search }}"
+        style="padding:6px; width:250px;"
+    >
+    <button type="submit">Search</button>
+</form>
+
 <table class="table">
     <tr>
         <th>Name</th>

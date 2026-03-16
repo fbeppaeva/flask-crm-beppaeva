@@ -75,7 +75,19 @@ def customers():
     if not login_required():
         return redirect(url_for('login'))
 
-    return render_template('customers.html', customers=Customer.get_all_customers())
+    search = request.args.get('search', '').lower()
+
+    customers = Customer.get_all_customers()
+
+    if search:
+        customers = [
+            c for c in customers
+            if search in c.name.lower()
+            or search in c.email.lower()
+            or search in c.company.lower()
+        ]
+
+    return render_template('customers.html', customers=customers, search=search)
 
 
 @app.route('/customers/add', methods=['GET', 'POST'])
