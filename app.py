@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from extensions import db
 from flasgger import Swagger
@@ -6,7 +7,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///crm.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'your-secret-key-change-this'
+app.secret_key = os.urandom(24)
 
 db.init_app(app)
 swagger = Swagger(app)
